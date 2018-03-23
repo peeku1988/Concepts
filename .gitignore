@@ -1,0 +1,3 @@
+# ignore dll and pdb files
+*.dll
+*.pdb
