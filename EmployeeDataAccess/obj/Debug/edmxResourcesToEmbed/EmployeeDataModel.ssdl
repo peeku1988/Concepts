@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EmployeeData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salary" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="int" Nullable="false" />
+    <Property Name="EmpName" Type="varchar" MaxLength="50" />
+    <Property Name="ManagerId" Type="int" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="float" Nullable="false" />
+    <Property Name="SalesRep" Type="float" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="ConfirmedDate" Type="datetime" />
+    <Property Name="Speaker1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Speaker2" Type="nvarchar" MaxLength="255" />
+    <Property Name="Speaker3" Type="nvarchar" MaxLength="255" />
+    <Property Name="Location1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Location2" Type="nvarchar" MaxLength="255" />
+    <Property Name="Location3" Type="nvarchar" MaxLength="255" />
+    <Property Name="Approved" Type="nvarchar" MaxLength="255" />
+    <Property Name="ApprovedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmedSpeaker" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmedLocation" Type="nvarchar" MaxLength="255" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="invitemax" Type="float" />
+    <Property Name="attendeemax" Type="float" />
+    <Property Name="region" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmedLocationId" Type="float" />
+    <Property Name="RequestedLocationId" Type="float" />
+    <Property Name="Product" Type="nvarchar" MaxLength="255" />
+    <Property Name="MeetingType" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmedSpeakerID" Type="float" />
+    <Property Name="ProductId" Type="float" />
+    <Property Name="TopicId" Type="float" />
+    <Property Name="Webinar" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmedAttendees" Type="float" />
+    <Property Name="FoodBevCost" Type="float" />
+    <Property Name="OrigEstCost" Type="float" />
+    <Property Name="AssignedTo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Locked" Type="float" />
+    <Property Name="RTSpeaker2" Type="nvarchar" MaxLength="255" />
+    <Property Name="RTSpeaker2ID" Type="nvarchar" MaxLength="255" />
+    <Property Name="RequestedFromIpad" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityContainer Name="EmployeeModelStoreContainer">
+    <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

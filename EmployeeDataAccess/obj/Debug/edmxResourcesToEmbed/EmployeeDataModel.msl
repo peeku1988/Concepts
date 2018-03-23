@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmployeeModelStoreContainer" CdmEntityContainer="EmployeeEntities">
+    <EntitySetMapping Name="EmployeeDatas">
+      <EntityTypeMapping TypeName="EmployeeModel.EmployeeData">
+        <MappingFragment StoreEntitySet="EmployeeData">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="EmployeeModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="EmployeeModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="RequestedFromIpad" ColumnName="RequestedFromIpad" />
+          <ScalarProperty Name="RTSpeaker2ID" ColumnName="RTSpeaker2ID" />
+          <ScalarProperty Name="RTSpeaker2" ColumnName="RTSpeaker2" />
+          <ScalarProperty Name="Locked" ColumnName="Locked" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="OrigEstCost" ColumnName="OrigEstCost" />
+          <ScalarProperty Name="FoodBevCost" ColumnName="FoodBevCost" />
+          <ScalarProperty Name="ConfirmedAttendees" ColumnName="ConfirmedAttendees" />
+          <ScalarProperty Name="Webinar" ColumnName="Webinar" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ConfirmedSpeakerID" ColumnName="ConfirmedSpeakerID" />
+          <ScalarProperty Name="MeetingType" ColumnName="MeetingType" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="RequestedLocationId" ColumnName="RequestedLocationId" />
+          <ScalarProperty Name="ConfirmedLocationId" ColumnName="ConfirmedLocationId" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="attendeemax" ColumnName="attendeemax" />
+          <ScalarProperty Name="invitemax" ColumnName="invitemax" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ConfirmedLocation" ColumnName="ConfirmedLocation" />
+          <ScalarProperty Name="ConfirmedSpeaker" ColumnName="ConfirmedSpeaker" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="Location3" ColumnName="Location3" />
+          <ScalarProperty Name="Location2" ColumnName="Location2" />
+          <ScalarProperty Name="Location1" ColumnName="Location1" />
+          <ScalarProperty Name="Speaker3" ColumnName="Speaker3" />
+          <ScalarProperty Name="Speaker2" ColumnName="Speaker2" />
+          <ScalarProperty Name="Speaker1" ColumnName="Speaker1" />
+          <ScalarProperty Name="ConfirmedDate" ColumnName="ConfirmedDate" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="SalesRep" ColumnName="SalesRep" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EmployeeData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityContainer Name="EmployeeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EmployeeDatas" EntityType="Self.EmployeeData" />
+    <EntitySet Name="Employees" EntityType="EmployeeModel.Employee" />
+    <EntitySet Name="Events" EntityType="EmployeeModel.Event" />
+  </EntityContainer>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="Int32" Nullable="false" />
+    <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ManagerId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Double" Nullable="false" />
+    <Property Name="SalesRep" Type="Double" />
+    <Property Name="RequestDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmedDate" Type="DateTime" Precision="3" />
+    <Property Name="Speaker1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Speaker2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Speaker3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Location1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Location2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Location3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Approved" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmedSpeaker" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmedLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="invitemax" Type="Double" />
+    <Property Name="attendeemax" Type="Double" />
+    <Property Name="region" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmedLocationId" Type="Double" />
+    <Property Name="RequestedLocationId" Type="Double" />
+    <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MeetingType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmedSpeakerID" Type="Double" />
+    <Property Name="ProductId" Type="Double" />
+    <Property Name="TopicId" Type="Double" />
+    <Property Name="Webinar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmedAttendees" Type="Double" />
+    <Property Name="FoodBevCost" Type="Double" />
+    <Property Name="OrigEstCost" Type="Double" />
+    <Property Name="AssignedTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Locked" Type="Double" />
+    <Property Name="RTSpeaker2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="RTSpeaker2ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedFromIpad" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
