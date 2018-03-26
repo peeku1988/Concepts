@@ -1,3 +1,4 @@
 # ignore dll and pdb files
+Demo/[Bb]in/
 *.dll
 *.pdb
