@@ -1,9 +1,0 @@
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\bin\Demo.dll.config
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\bin\Demo.dll
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\bin\Demo.pdb
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\obj\Debug\Demo.csprojResolveAssemblyReference.cache
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\obj\Debug\Demo.dll
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\obj\Debug\Demo.pdb
-C:\Users\priya\Documents\My Web Sites\WebAppAPI\Demo\obj\Debug\Demo.csproj.CoreCompileInputs.cache
