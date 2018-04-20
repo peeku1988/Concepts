@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebAppAPI\WebAppAPI.csproj">
+    <ProjectReference Include="..\WebAppAPI\WebAppAPIPages.csproj">
       <Project>{FCA3118D-31C4-4D37-AD8E-A9ABC0AAB0F1}</Project>
-      <Name>WebAppAPI</Name>
+      <Name>WebAppAPIPages</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI", "WebAppAPI\WebAppAPI.csproj", "{FCA3118D-31C4-4D37-AD8E-A9ABC0AAB0F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPIPages", "WebAppAPI\WebAppAPIPages.csproj", "{FCA3118D-31C4-4D37-AD8E-A9ABC0AAB0F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDataAccess", "EmployeeDataAccess\EmployeeDataAccess.csproj", "{DAC34D94-83C3-42DB-94F7-1D6BC1A7F198}"
 EndProject
