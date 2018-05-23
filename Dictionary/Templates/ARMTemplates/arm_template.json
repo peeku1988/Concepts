@@ -1,0 +1,494 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory Name",
+            "defaultValue": "PullJob20"
+        },
+        "Source_SQLAzure_xhi_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_xhi'"
+        },
+        "Destination_SQLAzure_xhi_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_xhi'"
+        },
+        "Destination_SQLAzure_ido_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_ido'"
+        },
+        "Source_SQLAzure_ido_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_ido'"
+        },
+        "Source_SQLAzure_jca_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_jca'"
+        },
+        "Destination_SQLAzure_jca_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_jca'"
+        },
+        "Destination_SQLAzure_1pi_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_1pi'"
+        },
+        "Source_SQLAzure_1pi_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_1pi'"
+        },
+        "Destination_SQLAzure_ncy_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_ncy'"
+        },
+        "Source_SQLAzure_ncy_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_ncy'"
+        },
+        "linkedService1_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'linkedService1'"
+        },
+        "Source_SQLAzure_qv0_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Source_SQLAzure_qv0'"
+        },
+        "Destination_SQLAzure_qv0_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'Destination_SQLAzure_qv0'"
+        },
+        "linkedService2_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'linkedService2'"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
+        "leftBracket": "["
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/Copyfromtbltopull')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Copy_dbo_pull",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "SqlSource"
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000,
+                                "preCopyScript": "truncate table pull"
+                            },
+                            "enableStaging": false,
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": {
+                                    "ID": "ID",
+                                    "DateCreated": "DateModified"
+                                }
+                            }
+                        },
+                        "userProperties": [
+                            {
+                                "name": "Source",
+                                "value": "[concat(variables('leftBracket'), 'dbo].[tbl]')]"
+                            },
+                            {
+                                "name": "Destination",
+                                "value": "[concat(variables('leftBracket'), 'dbo].[pull]')]"
+                            }
+                        ],
+                        "inputs": [
+                            {
+                                "referenceName": "dbo_tbl_i_qv0",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "dbo_pull_o_qv0",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copytosecond",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_dbo_pull",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "SqlSource"
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000,
+                                "preCopyScript": "truncate table secondpull"
+                            },
+                            "enableStaging": false,
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": {
+                                    "ID": "ID",
+                                    "DateModified": "DateModified"
+                                }
+                            }
+                        },
+                        "userProperties": [
+                            {
+                                "name": "Source",
+                                "value": "[concat(variables('leftBracket'), 'dbo].[pull]')]"
+                            },
+                            {
+                                "name": "Destination",
+                                "value": "[concat(variables('leftBracket'), 'dbo].[secondpull]')]"
+                            }
+                        ],
+                        "inputs": [
+                            {
+                                "referenceName": "dbo_pull_o_qv0",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "AzureSqlTablesecond",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/dbo_tbl_i_qv0')]",
+                "[concat(variables('factoryId'), '/datasets/dbo_pull_o_qv0')]",
+                "[concat(variables('factoryId'), '/datasets/AzureSqlTablesecond')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/dbo_tbl_i_qv0')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "Source_SQLAzure_qv0",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ID",
+                        "type": "Int32"
+                    },
+                    {
+                        "name": "DateCreated",
+                        "type": "DateTime"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "[concat(variables('leftBracket'), 'dbo].[tbl]')]"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/Source_SQLAzure_qv0')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/dbo_pull_o_qv0')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "Destination_SQLAzure_qv0",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ID",
+                        "type": "Int32"
+                    },
+                    {
+                        "name": "DateModified",
+                        "type": "DateTime"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "[concat(variables('leftBracket'), 'dbo].[pull]')]"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/Destination_SQLAzure_qv0')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/AzureSqlTablesecond')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "linkedService2",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ID",
+                        "type": "Int32"
+                    },
+                    {
+                        "name": "DateModified",
+                        "type": "DateTime"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "[concat(variables('leftBracket'), 'dbo].[secondpull]')]"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/linkedService2')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_xhi')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_xhi_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_xhi')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_xhi_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_ido')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_ido_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_ido')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_ido_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_jca')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_jca_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_jca')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_jca_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_1pi')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_1pi_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_1pi')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_1pi_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_ncy')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_ncy_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_ncy')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_ncy_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/linkedService1')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('linkedService1_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Source_SQLAzure_qv0')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Source_SQLAzure_qv0_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/Destination_SQLAzure_qv0')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('Destination_SQLAzure_qv0_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/linkedService2')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[parameters('linkedService2_connectionString')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}
